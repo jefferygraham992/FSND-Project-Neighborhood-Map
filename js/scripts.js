@@ -9,7 +9,12 @@ function initMap() {
 };
 
 var viewModel = function() {
-  
+  var self = this;
+
+  self.locations = ko.observableArray([
+    {title: 'M Street Yoga', location: {lat: 38.876134, lng: -77.016488}},
+    {title: 'Flow Yoga Center', location: {lat: 38.910008, lng: -77.032288}},
+  ]);
 
 };
 

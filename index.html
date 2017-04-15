@@ -22,7 +22,10 @@
 
     <div class="row">
       <div class="list-view col-md-3">
-        
+        <h3>Yoga Locations in Washington, DC</h3>
+        <ul data-bind="foreach: locations">
+          <li data-bind="text: title"></li>
+        </ul>
       </div>
 
       <div id="map" class="map-view col-md-9"></div>
