@@ -1,0 +1,24 @@
+html,
+body {
+  font-family: Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  height: calc(100vh - 50px);
+}
+
+.search-row {
+  background-color: grey;
+  height: 50px;
+}
+
+.list-view {
+  height: calc(100vh - 50px);
+}
+
+.map-view {
+  height: calc(100vh - 50px);
+}
