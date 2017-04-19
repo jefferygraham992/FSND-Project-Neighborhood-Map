@@ -7,18 +7,14 @@ body {
 }
 
 #map {
-  height: calc(100vh - 50px);
+  height: 100vh;
 }
 
-.search-row {
-  background-color: grey;
-  height: 50px;
-}
 
 .list-view {
-  height: calc(100vh - 50px);
+  height: 100vh;
 }
 
 .map-view {
-  height: calc(100vh - 50px);
+  height: 100vh;
 }
