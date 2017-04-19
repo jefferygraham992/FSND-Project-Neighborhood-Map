@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Marker Clustering</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -21,60 +18,33 @@
   <body>
     <div id="map"></div>
     <script>
-      var washingtonDC = {lat: 38.9071923, lng: -77.03687070000001};
-
+      var map;
       function initMap() {
-
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
-          center: washingtonDC
+          center: new google.maps.LatLng(38.9072,-77.0369),
         });
 
-        // Create an array of alphabetical characters used to label the markers.
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-        var markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
-          });
-        });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+        // Create a <script> tag and set the USGS URL as the source.
+        var script = document.createElement('script');
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        script.src = 'js/geoJSON.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
       }
-      var locations = [
-        {lat: 38.919429, lng: -77.07019960000002},
-        {lat: 38.9098055, lng: -77.06430009999997},
-        {lat: 38.9251031, lng: -77.03842029999998},
-        {lat: 38.9222299, lng: -77.04225450000001},
-        {lat: 38.9054783, lng: -77.05728950000002},
-        {lat: 38.9011673, lng: -77.04448869999999},
-        {lat: 38.9079425, lng: -77.04200350000002},
-        {lat: 38.9093432, lng: -77.03381430000002},
-        {lat: 38.9122626, lng: -77.0387551},
-        {lat: 38.91222800000001, lng: 77.04455940000003},
-        {lat: 38.91298570000001, lng: -77.04571399999998},
-        {lat: 38.8761342, lng: -77.0164878},
-        {lat: 38.8846813, lng: -76.99707599999999},
-        {lat: 38.9004035, lng: -76.99931670000001},
-        {lat: 38.90046350000001, lng: -77.00002849999998},
-        {lat: 38.8969494, lng: -76.99284410000001},
-        {lat: 38.888113, lng: -77.00172800000001},
-        {lat: 38.9021901, lng: -77.01923069999998},
-        {lat: 38.9060727, lng: -77.006302},
-        {lat: 38.9152128, lng: -77.0124179},
-        {lat: 38.9322279, lng: -77.03243250000003},
-        {lat: 38.8970221, lng: -77.02548760000002},
-        {lat: 38.9334042, lng: -77.02432920000001}
-      ]
-    </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+
+      // Loop through the results array and place a marker for each
+      // set of coordinates.
+      window.eqfeed_callback = function(results) {
+        for (var i = 0; i < results.features.length; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
+      }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMsiw76trpqtvIqfLxQ_0fo38WqkgqEQ&v=3.27&callback=initMap">
