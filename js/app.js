@@ -23,10 +23,16 @@ function initMap() {
    });
   function setMarker(data)
   {
+    var infowindow = new google.maps.InfoWindow({
+      content: data.venue.name
+    });
     var myLatLng = {lat: data.venue.location.labeledLatLngs[0].lat, lng: data.venue.location.labeledLatLngs[0].lng};
     var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-  });
+      position: myLatLng,
+      map: map,
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
   }
 }
