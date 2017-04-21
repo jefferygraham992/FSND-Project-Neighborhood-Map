@@ -142,16 +142,17 @@ var viewModel = function(){
       // Push the marker to our array of markers.
       markers.push(marker);
     }
-    //Function for toggling markers between bounce/non-bounce state when marker
-    //is clicked
-    function toggleBounce(marker) {
-      if (this.getAnimation() !== null) {
-        this.setAnimation(null);
-      } else {
-        this.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    }
   });
+
+  //Function for toggling markers between bounce/non-bounce state when marker
+  //is clicked
+  self.toggleBounce = function (marker) {
+    if (this.getAnimation() !== null) {
+      this.setAnimation(null);
+    } else {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
 
   //Implementation of click function on clicked list item
   self.listClick = function(index) {
