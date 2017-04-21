@@ -39,8 +39,8 @@ var viewModel = function(){
       // Push the marker to our array of markers.
       markers.push(marker);
     }
-
-    //Function for toggling markers between bounce/non-bounce state
+    //Function for toggling markers between bounce/non-bounce state when marker
+    //is clicked
     function toggleBounce(marker) {
       if (this.getAnimation() !== null) {
         this.setAnimation(null);
@@ -51,8 +51,13 @@ var viewModel = function(){
   });
 
   //Implementation of click function on clicked list item
-  self.alertPage = function() {
-    alert(this.venue.name);
+  self.listClick = function(index) {
+    markerItem = markers[index];
+    if (markerItem.getAnimation() !== null) {
+      markerItem.setAnimation(null);
+    } else {
+      markerItem.setAnimation(google.maps.Animation.BOUNCE);
+    }
   }
 }
 
