@@ -17,10 +17,10 @@
     <div class="row">
 
       <div class="list-view col-md-3">
-        <h3>Top Ten Yoga Studios in Washington, DC</h3>
+        <h3>Top Ten <span id="search"></span> in Washington, DC</h3>
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Yoga Studios">
+            <input type="text" id="search" class="form-control" placeholder="Yoga Studios">
           </div>
         </form>
         <div>
@@ -36,7 +36,7 @@
   </div>
 
   <script async defer
-     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV5HH3ckLoXUSkwXlDAodx5E7yKlST2Nw&v=3&callback=initMap">
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV5HH3ckLoXUSkwXlDAodx5E7yKlST2Nw&libraries=places&v=3&callback=initMap">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.2.js"></script>

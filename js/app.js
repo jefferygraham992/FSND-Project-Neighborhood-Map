@@ -1,7 +1,9 @@
 var map, marker;
 var markers = [];
+var search = "parks";
+$("#search").text(search[0].toUpperCase() + search.slice(1));
 var washingtonDC = {lat: 38.904174, lng: -77.017021};
-var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.904174,-77.017021&query=yoga&radius=10000&limit=10";
+var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.904174,-77.017021&query=" + search +"&radius=10000&limit=10";
 
 //Initialize map
 function initMap() {
@@ -149,7 +151,8 @@ var viewModel = function(){
   self.toggleBounce = function (marker) {
     if (this.getAnimation() !== null) {
       this.setAnimation(null);
-    } else {
+    }
+    else {
       this.setAnimation(google.maps.Animation.BOUNCE);
     }
   }
