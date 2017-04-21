@@ -1,44 +1,45 @@
-var map;
+var map, marker;
+var markers = [];
 var washingtonDC = {lat: 38.904174, lng: -77.017021};
 var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.904174,-77.017021&query=yoga&radius=10000&limit=10";
+
+//Initialize map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: washingtonDC,
     zoom: 13
   });
-  $.ajax({
-      url:url,
-      type: "GET",
-      dataType: "json",
-      success:function(result) {
-          var locations = result.response.groups[0].items;
-          for (var i = 0; i < locations.length; i++) {
-              setMarker(locations[i]);
-          }
-      }
-   });
-  function setMarker(data)
-  {
-    var infowindow = new google.maps.InfoWindow({
-      content: data.venue.name
-    });
-    var myLatLng = {lat: data.venue.location.labeledLatLngs[0].lat, lng: data.venue.location.labeledLatLngs[0].lng};
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-    });
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
-  }
-}
+};
 
 var viewModel = function(){
   var self = this;
+
+  //Get array of places from FourSquare API to build list view
   self.locations = ko.observableArray([]);
   $.getJSON(url, function(data) {
-    self.locations(data.response.groups[0].items);
+    var locationsList = data.response.groups[0].items;
+    self.locations(locationsList);
+    //Place markers on map using the array of places retrieved from FourSquare
+    //API
+    for (var i = 0; i < locationsList.length; i++) {
+      // Get the position & name of location from the location array.
+      var position = {lat: locationsList[i].venue.location.lat,
+                      lng: locationsList[i].venue.location.lng};
+      var title = locationsList[i].venue.name;
+      // Create a marker per location, and put into markers array.
+      var marker = new google.maps.Marker({
+        map: map,
+        position: position,
+        title: title,
+        animation: google.maps.Animation.DROP,
+        id: i
+      });
+      // Push the marker to our array of markers.
+      markers.push(marker);
+    }
   });
+
+  //Implementation of click function on clicked list item
   self.alertPage = function() {
     alert(this.venue.name);
   }
