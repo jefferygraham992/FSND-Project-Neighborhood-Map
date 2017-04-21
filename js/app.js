@@ -39,6 +39,9 @@ var viewModel = function(){
   $.getJSON(url, function(data) {
     self.locations(data.response.groups[0].items);
   });
+  self.alertPage = function() {
+    alert(this.venue.name);
+  }
 }
 
 ko.applyBindings(viewModel);
