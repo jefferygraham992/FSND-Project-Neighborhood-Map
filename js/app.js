@@ -34,8 +34,19 @@ var viewModel = function(){
         animation: google.maps.Animation.DROP,
         id: i
       });
+      //Add listener to add bounce to selected marker
+      marker.addListener('click', toggleBounce);
       // Push the marker to our array of markers.
       markers.push(marker);
+    }
+
+    //Function for toggling markers between bounce/non-bounce state
+    function toggleBounce(marker) {
+      if (this.getAnimation() !== null) {
+        this.setAnimation(null);
+      } else {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+      }
     }
   });
 
