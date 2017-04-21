@@ -23,9 +23,11 @@
             <input type="text" class="form-control" placeholder="Yoga Studios">
           </div>
         </form>
-        <ul data-bind="foreach: locations">
-          <li data-bind="text: name"></li>
-        </ul>
+        <div>
+          <ul data-bind="foreach: locations">
+            <li data-bind="text: venue.name"></li>
+          </ul>
+        </div>
       </div>
 
       <div id="map" class="map-view col-md-9"></div>

@@ -35,10 +35,10 @@ function initMap() {
 
 var viewModel = function(){
   var self = this;
-  self.locations = ko.observableArray([
-      {name: "Cleveland", latitude:41.48 , longitude:-81.67},
-      {name: "Chicago", latitude: 41.88, longitude: -87.63}
-  ]);
+  self.locations = ko.observableArray([]);
+  $.getJSON(url, function(data) {
+    self.locations(data.response.groups[0].items);
+  });
 }
 
 ko.applyBindings(viewModel);
