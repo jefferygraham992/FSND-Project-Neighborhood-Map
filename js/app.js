@@ -166,7 +166,7 @@ var viewModel = function(){
     {
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-  }
+  };
 
   //Implementation of click function on clicked list item
   self.listClick = function(index) {
@@ -178,12 +178,18 @@ var viewModel = function(){
     {
       markerItem.setAnimation(google.maps.Animation.BOUNCE);
     }
-  }
+  };
 
   //Filter the list view
-  this.filterList = ko.computed(function() {
-    var filter = this.filter()
-    console.log(filter);
+  this.filteredList = ko.computed(function() {
+    var filter = this.filter();
+    if (!filter) {
+        return this.locationList();
+    }
+    else
+    {
+
+    }
   }, this);
 }
 

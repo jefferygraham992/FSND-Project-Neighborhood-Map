@@ -24,7 +24,7 @@
           </div>
         </form>
         <div>
-          <ul class="list-unstyled" data-bind="foreach: locationList">
+          <ul class="list-unstyled" data-bind="foreach: filteredList">
             <li data-bind="text: venue.name, click: listClick.bind($data, $index())"></li>
           </ul>
         </div>
