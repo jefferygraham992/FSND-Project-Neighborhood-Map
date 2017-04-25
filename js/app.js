@@ -131,6 +131,8 @@ var viewModel = function(){
   //Initialize ko.observableArray for locations
   this.locationList = ko.observableArray([]);
 
+  this.filter = ko.observable("");
+
   //Add locations to ko.observable
   this.buildList = function(locationArray) {
     self.locationList(locationArray);
@@ -177,6 +179,12 @@ var viewModel = function(){
       markerItem.setAnimation(google.maps.Animation.BOUNCE);
     }
   }
+
+  //Filter the list view
+  this.filterList = ko.computed(function() {
+    var filter = this.filter()
+    console.log(filter);
+  }, this);
 }
 
 ko.applyBindings(viewModel);
