@@ -156,12 +156,13 @@ var viewModel = function(){
 
   //Function for toggling markers between bounce/non-bounce state when marker
   //is clicked
-  self.toggleBounce = function (marker) {
-    if (this.getAnimation() !== null) {
-      this.setAnimation(null);
+  self.toggleBounce = function () {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
     }
-    else {
-      this.setAnimation(google.maps.Animation.BOUNCE);
+    else
+    {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   }
 
@@ -171,7 +172,8 @@ var viewModel = function(){
     if (markerItem.getAnimation() !== null) {
       markerItem.setAnimation(null);
     }
-    else {
+    else
+    {
       markerItem.setAnimation(google.maps.Animation.BOUNCE);
     }
   }
