@@ -182,14 +182,15 @@ var viewModel = function(){
 
   //Filter the list view
   this.filteredList = ko.computed(function() {
-    var filter = this.filter();
+    var filter = this.filter().toLowerCase();
     if (!filter) {
         return this.locationList();
     }
     else
     {
       var filtered = ko.utils.arrayFilter(this.locationList(), function (data) {
-          return (data.venue.name.includes(filter));
+        var lowerCasePlace = data.venue.name.toLowerCase();  
+        return (lowerCasePlace.includes(filter));
       });
       return filtered;
     }
