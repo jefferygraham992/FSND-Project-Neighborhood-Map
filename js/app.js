@@ -159,12 +159,12 @@ var viewModel = function(){
   //Function for toggling markers between bounce/non-bounce state when marker
   //is clicked
   self.toggleBounce = function () {
-    if (marker.getAnimation() !== null) {
-      marker.setAnimation(null);
+    if (this.getAnimation() !== null) {
+      this.setAnimation(null);
     }
     else
     {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
+      this.setAnimation(google.maps.Animation.BOUNCE);
     }
   };
 
@@ -188,7 +188,10 @@ var viewModel = function(){
     }
     else
     {
-
+      var filtered = ko.utils.arrayFilter(this.locationList(), function (data) {
+          return (data.venue.name.includes(filter));
+      });
+      return filtered;
     }
   }, this);
 }
