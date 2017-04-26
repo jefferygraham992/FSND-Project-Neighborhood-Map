@@ -1,4 +1,4 @@
-var map, marker;
+var map, marker, infowindow;
 var markers = [];
 var search = "parks";
 var washingtonDC = {lat: 38.904174, lng: -77.017021};
@@ -142,11 +142,17 @@ var viewModel = function(){
       var position = {lat: location.venue.location.lat,
                       lng: location.venue.location.lng};
       var title = location.venue.name;
+      var infowindow = new google.maps.InfoWindow({
+        content: title
+      });
       marker = new google.maps.Marker({
         map: map,
         title: title,
         position: position,
         id: i
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, this);
       });
       marker.addListener('click', toggleBounce);
       markers.push(marker);
