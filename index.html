@@ -9,31 +9,31 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
-
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
 
-      <div class="list-view col-md-3">
-        <h3>Top Ten <span id="h3-search"></span> in Washington, DC</h3>
-        <form>
-          <div class="form-group">
-            <input type="text" id="search" class="form-control" autocomplete="off" data-bind="value: filter, valueUpdate: 'afterkeydown'">
-          </div>
-        </form>
-        <div>
-          <ul class="list-unstyled" data-bind="foreach: filteredList">
-            <li data-bind="text: venue.name, click: listClick.bind($data, $index())"></li>
-          </ul>
-        </div>
+
+  <div id="mySidenav" class="sidenav list-view">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <h3>Top Ten <span id="h3-search"></span> in Washington, DC</h3>
+    <form>
+      <div class="form-group">
+        <input type="text" id="search" class="form-control" autocomplete="off" data-bind="value: filter, valueUpdate: 'afterkeydown'">
       </div>
-
-      <div id="map" class="map-view col-md-9"></div>
-
+    </form>
+    <div>
+      <ul class="list-unstyled" data-bind="foreach: filteredList">
+        <li data-bind="text: venue.name, click: listClick.bind($data, $index())"></li>
+      </ul>
     </div>
   </div>
+
+  <main>
+    <span onclick="openNav()">open</span>
+    <div id="map" class="map-view"></div>
+  </main>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -41,6 +41,18 @@
   <script src="js/app.js"></script>
   <script async defer
      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV5HH3ckLoXUSkwXlDAodx5E7yKlST2Nw&libraries=places&v=3&callback=initMap">
+  </script>
+  <script>
+  /* Set the width of the side navigation to 250px */
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+openNav();
   </script>
 </body>
 </html>
