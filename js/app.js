@@ -1,10 +1,9 @@
 var map, marker, infowindow;
 var markers = [];
 var search = "parks";
-var washingtonDC = {lat: 38.904174, lng: -77.017021};
-var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.904174,-77.017021&query=" + search +"&radius=10000&limit=10";
+var washingtonDC = {lat: 38.9072, lng: -77.0369};
+var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.9072,-77.0369&query=" + search +"&radius=15000&limit=10";
 $("#h3-search").text(search[0].toUpperCase() + search.slice(1));
-$("#search").attr("placeholder", (search[0].toUpperCase() + search.slice(1)));
 
 function ListControl(controlDiv, map) {
 
@@ -17,7 +16,7 @@ function ListControl(controlDiv, map) {
   controlUI.style.cursor = 'pointer';
   controlUI.style.marginBottom = '22px';
   controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to recenter the map';
+  controlUI.title = 'Click to open locations list';
   controlDiv.appendChild(controlUI);
 
   // Set CSS for the control interior.
@@ -28,7 +27,7 @@ function ListControl(controlDiv, map) {
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
-  controlText.innerHTML = 'Open Locations';
+  controlText.innerHTML = '☰';
   controlUI.appendChild(controlText);
 
   // Setup the click event listeners: simply set the map to Chicago.
@@ -41,7 +40,7 @@ function ListControl(controlDiv, map) {
 var initMap = function() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: washingtonDC,
-    zoom: 13,
+    zoom: 12,
     mapTypeControl: true,
     mapTypeControlOptions: {
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,

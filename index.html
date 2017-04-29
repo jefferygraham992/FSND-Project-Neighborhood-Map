@@ -14,25 +14,27 @@
 
 <body>
 
+  <div class="container-fluid">
 
-  <div id="mySidenav" class="sidenav list-view">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <h3>Top Ten <span id="h3-search"></span> in Washington, DC</h3>
-    <form>
-      <div class="form-group">
-        <input type="text" id="search" class="form-control" autocomplete="off" data-bind="value: filter, valueUpdate: 'afterkeydown'">
+    <div id="mySidenav" class="col-md-12 sidenav list-view">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <h3>Top Ten <span id="h3-search"></span> Around Washington, DC</h3>
+      <form>
+        <div class="form-group">
+          <input type="text" id="search" class="form-control" autocomplete="off" placeholder="Filter locations" data-bind="value: filter, valueUpdate: 'afterkeydown'">
+        </div>
+      </form>
+      <div>
+        <ul class="list-unstyled" data-bind="foreach: filteredList">
+          <li data-bind="text: venue.name, click: listClick.bind($data, $index())"></li>
+        </ul>
       </div>
-    </form>
-    <div>
-      <ul class="list-unstyled" data-bind="foreach: filteredList">
-        <li data-bind="text: venue.name, click: listClick.bind($data, $index())"></li>
-      </ul>
     </div>
-  </div>
 
-  <main>
-    <div id="map" class="map-view"></div>
-  </main>
+    <main class="col-md-12">
+      <div id="map" class="map-view"></div>
+    </main>
+  </div>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
