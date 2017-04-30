@@ -165,6 +165,9 @@ var viewModel = function(){
   $.getJSON(url, function(data) {
     var locations = data.response.groups[0].items;
     buildList(locations);
+  })
+  .fail(function() {
+    alert("Failed to retrieve locations");
   });
 
   var self = this;
