@@ -184,10 +184,16 @@ var viewModel = function(){
       var position = {lat: location.venue.location.lat,
                       lng: location.venue.location.lng};
       var title = location.venue.name;
+      var locationImageSize = "150x150"
+      var locationImage = location.venue.photos.groups[0].items[0].prefix + locationImageSize + location.venue.photos.groups[0].items[0].suffix;
+      var locationAddress = location.venue.location.formattedAddress;
       var infowindow = new google.maps.InfoWindow();
       var innerHTML = "<div>";
       innerHTML += "<strong>" + title + "</strong>";
-      innerHTML += '<br><img src="' + location.venue.photos.groups[0].items[0].prefix + "250x250" + location.venue.photos.groups[0].items[0].suffix + '">'
+      innerHTML += '<br><img src="' + locationImage + '">';
+      innerHTML += '<br><u>Address:</u>';
+      innerHTML += '<br>' + locationAddress[0];
+      innerHTML += '<br>' + locationAddress[1];
       innerHTML += "</div>"
       infowindow.setContent(innerHTML);
       marker = new google.maps.Marker({
