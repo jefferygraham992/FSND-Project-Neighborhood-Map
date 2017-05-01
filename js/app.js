@@ -1,4 +1,4 @@
-var map, marker, infowindow;
+var map, marker, infowindow, innerHTML;
 var markers = [];
 var search = "Parks";
 var washingtonDC = {lat: 38.9072, lng: -77.0369};
@@ -191,7 +191,7 @@ var viewModel = function(){
       var locationImage = location.venue.photos.groups[0].items[0].prefix + locationImageSize + location.venue.photos.groups[0].items[0].suffix;
       var locationAddress = location.venue.location.formattedAddress;
       var infowindow = new google.maps.InfoWindow();
-      var innerHTML = "<div>";
+      innerHTML = "<div>";
       innerHTML += "<strong>" + title + "</strong>";
       innerHTML += '<br><img src="' + locationImage + '">';
       innerHTML += '<br><u>Address:</u>';
@@ -229,7 +229,7 @@ var viewModel = function(){
   self.listClick = function(index) {
     markerItem = markers[index];
     var infowindow = new google.maps.InfoWindow();
-    infowindow.setContent("Hey");
+    infowindow.setContent(innerHTML);
     infowindow.open(map, markerItem);
     if (markerItem.getAnimation() !== null) {
       markerItem.setAnimation(null);
