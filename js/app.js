@@ -221,24 +221,9 @@ var viewModel = function(){
     };
   };
 
-  //Function for toggling markers between bounce/non-bounce state when marker
-  //is clicked
-  // self.toggleColor = function () {
-  //   if (this.icon !== null) {
-  //     this.setIcon(null);
-  //   }
-  //   else
-  //   {
-  //     this.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-  //   }
-  // };
-
   //Implementation of click function on clicked list item
   self.listClick = function(index) {
     markerItem = markers[index];
-    var infowindow = new google.maps.InfoWindow();
-    infowindow.setContent(innerHTML);
-    infowindow.open(map, markerItem);
     if (markerItem.getAnimation()) {
       markerItem.setAnimation(null);
     }
