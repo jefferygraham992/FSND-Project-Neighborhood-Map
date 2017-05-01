@@ -205,25 +205,33 @@ var viewModel = function(){
         position: position,
         id: i
       });
+      marker.addListener('click', toggleBounce);
       marker.addListener('click', function() {
         infowindow.open(map, this);
       });
-      marker.addListener('click', toggleBounce);
       markers.push(marker);
     });
+    function toggleBounce() {
+      if (this.getAnimation()) {
+        this.setAnimation(null);
+      }
+      else {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    };
   };
 
   //Function for toggling markers between bounce/non-bounce state when marker
   //is clicked
-  self.toggleBounce = function () {
-    if (this.getAnimation() !== null) {
-      this.setAnimation(null);
-    }
-    else
-    {
-      this.setAnimation(google.maps.Animation.BOUNCE);
-    }
-  };
+  // self.toggleColor = function () {
+  //   if (this.icon !== null) {
+  //     this.setIcon(null);
+  //   }
+  //   else
+  //   {
+  //     this.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+  //   }
+  // };
 
   //Implementation of click function on clicked list item
   self.listClick = function(index) {
@@ -231,7 +239,7 @@ var viewModel = function(){
     var infowindow = new google.maps.InfoWindow();
     infowindow.setContent(innerHTML);
     infowindow.open(map, markerItem);
-    if (markerItem.getAnimation() !== null) {
+    if (markerItem.getAnimation()) {
       markerItem.setAnimation(null);
     }
     else
