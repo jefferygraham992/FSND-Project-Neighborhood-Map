@@ -1,4 +1,4 @@
-var map, marker, infowindow, innerHTML;
+var map, marker;
 var markers = [];
 var search = "Parks";
 var washingtonDC = {lat: 38.9072, lng: -77.0369};
@@ -223,14 +223,7 @@ var viewModel = function(){
 
   //Implementation of click function on clicked list item
   self.listClick = function(index) {
-    markerItem = markers[index];
-    if (markerItem.getAnimation()) {
-      markerItem.setAnimation(null);
-    }
-    else
-    {
-      markerItem.setAnimation(google.maps.Animation.BOUNCE);
-    }
+    google.maps.event.trigger(markers[index], 'click');
   };
 
   //Filter the list view
