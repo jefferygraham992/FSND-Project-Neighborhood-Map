@@ -38,6 +38,110 @@ function ListControl(controlDiv, map) {
 
 //Initialize map
 var initMap = function() {
+  var styles = [
+      {
+          "featureType": "landscape",
+          "stylers": [
+              {
+                  "hue": "#F1FF00"
+              },
+              {
+                  "saturation": -27.4
+              },
+              {
+                  "lightness": 9.4
+              },
+              {
+                  "gamma": 1
+              }
+          ]
+      },
+      {
+          "featureType": "road.highway",
+          "stylers": [
+              {
+                  "hue": "#0099FF"
+              },
+              {
+                  "saturation": -20
+              },
+              {
+                  "lightness": 36.4
+              },
+              {
+                  "gamma": 1
+              }
+          ]
+      },
+      {
+          "featureType": "road.arterial",
+          "stylers": [
+              {
+                  "hue": "#00FF4F"
+              },
+              {
+                  "saturation": 0
+              },
+              {
+                  "lightness": 0
+              },
+              {
+                  "gamma": 1
+              }
+          ]
+      },
+      {
+          "featureType": "road.local",
+          "stylers": [
+              {
+                  "hue": "#FFB300"
+              },
+              {
+                  "saturation": -38
+              },
+              {
+                  "lightness": 11.2
+              },
+              {
+                  "gamma": 1
+              }
+          ]
+      },
+      {
+          "featureType": "water",
+          "stylers": [
+              {
+                  "hue": "#00B6FF"
+              },
+              {
+                  "saturation": 4.2
+              },
+              {
+                  "lightness": -63.4
+              },
+              {
+                  "gamma": 1
+              }
+          ]
+      },
+      {
+          "featureType": "poi",
+          "stylers": [
+              {
+                  "hue": "#9FFF00"
+              },
+              {
+                  "saturation": 0
+              },
+              {
+                  "lightness": 0
+              },
+              {
+                  "gamma": 1
+              }
+          ]
+      }
+  ];
   map = new google.maps.Map(document.getElementById('map'), {
     center: washingtonDC,
     zoom: 12,
@@ -46,110 +150,7 @@ var initMap = function() {
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
               position: google.maps.ControlPosition.TOP_RIGHT
           },
-    styles: [
-        {
-            "featureType": "landscape",
-            "stylers": [
-                {
-                    "hue": "#F1FF00"
-                },
-                {
-                    "saturation": -27.4
-                },
-                {
-                    "lightness": 9.4
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "stylers": [
-                {
-                    "hue": "#0099FF"
-                },
-                {
-                    "saturation": -20
-                },
-                {
-                    "lightness": 36.4
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-        },
-        {
-            "featureType": "road.arterial",
-            "stylers": [
-                {
-                    "hue": "#00FF4F"
-                },
-                {
-                    "saturation": 0
-                },
-                {
-                    "lightness": 0
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "stylers": [
-                {
-                    "hue": "#FFB300"
-                },
-                {
-                    "saturation": -38
-                },
-                {
-                    "lightness": 11.2
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "stylers": [
-                {
-                    "hue": "#00B6FF"
-                },
-                {
-                    "saturation": 4.2
-                },
-                {
-                    "lightness": -63.4
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "stylers": [
-                {
-                    "hue": "#9FFF00"
-                },
-                {
-                    "saturation": 0
-                },
-                {
-                    "lightness": 0
-                },
-                {
-                    "gamma": 1
-                }
-            ]
-        }
-    ]
+    styles: styles
   });
   // Create the DIV to hold the control and call the CenterControl()
   // constructor passing in this DIV.
