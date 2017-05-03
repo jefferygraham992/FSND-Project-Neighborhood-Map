@@ -6,7 +6,6 @@ var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1O
 $("#h3-search").text(search[0].toUpperCase() + search.slice(1));
 
 function ListControl(controlDiv, map) {
-
   // Set CSS for the control border.
   var controlUI = document.createElement('div');
   controlUI.style.backgroundColor = '#fff';
@@ -37,7 +36,7 @@ function ListControl(controlDiv, map) {
 };
 
 //Initialize map
-var initMap = function() {
+function initMap() {
   var styles = [
       {
           "featureType": "landscape",
@@ -161,7 +160,7 @@ var initMap = function() {
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(listControlDiv);
 };
 
-var viewModel = function(){
+function viewModel(){
   //AJAX request to build list & place markers
   $.getJSON(url, function(data) {
     var locations = data.response.groups[0].items;
