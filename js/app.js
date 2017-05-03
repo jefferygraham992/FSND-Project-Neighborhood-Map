@@ -214,6 +214,9 @@ function viewModel(){
       markers.push(marker);
     });
     function toggleBounce() {
+      for (var i = 0; i < markers.length; i++) {
+          markers[i].setAnimation(null);
+      };
       if (this.getAnimation()) {
         this.setAnimation(null);
       }
