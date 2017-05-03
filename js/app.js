@@ -188,7 +188,9 @@ function viewModel(){
                       lng: location.venue.location.lng};
       var title = location.venue.name;
       var locationImageSize = "150x150"
-      var locationImage = location.venue.photos.groups[0].items[0].prefix + locationImageSize + location.venue.photos.groups[0].items[0].suffix;
+      var locationImage = location.venue.photos.groups[0].items[0].prefix
+                          + locationImageSize
+                          + location.venue.photos.groups[0].items[0].suffix;
       var locationAddress = location.venue.location.formattedAddress;
       var infowindow = new google.maps.InfoWindow();
       innerHTML = "<div>";
@@ -222,8 +224,12 @@ function viewModel(){
   };
 
   //Implementation of click function on clicked list item
-  self.listClick = function(index) {
-    google.maps.event.trigger(markers[index], 'click');
+  self.listClick = function() {
+    for (var i = 0; i < markers.length; i++) {
+      if (markers[i].title == this.venue.name) {
+        google.maps.event.trigger(markers[i], 'click');
+      }
+    }
   };
 
   //Filter the list view
@@ -231,7 +237,7 @@ function viewModel(){
     var filter = this.filter().toLowerCase();
     if (!filter) {
       placeMarkers(locationList());
-      return locationList();
+      return this.locationList();
     }
     else
     {
@@ -239,8 +245,7 @@ function viewModel(){
           markers[i].setMap(null);
       };
       var filtered = ko.utils.arrayFilter(this.locationList(), function (data) {
-        var lowerCasePlace = data.venue.name.toLowerCase();
-        return (lowerCasePlace.includes(filter));
+        return (data.venue.name.toLowerCase().includes(filter));
       });
       placeMarkers(filtered);
       return filtered;
