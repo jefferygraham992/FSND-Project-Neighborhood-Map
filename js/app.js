@@ -1,4 +1,4 @@
-var map, marker;
+var map, marker, infowindow;
 var markers = [];
 var search = "Parks";
 var washingtonDC = {lat: 38.9072, lng: -77.0369};
@@ -192,8 +192,8 @@ function viewModel(){
                           + locationImageSize
                           + location.venue.photos.groups[0].items[0].suffix;
       var locationAddress = location.venue.location.formattedAddress;
-      var infowindow = new google.maps.InfoWindow();
-      innerHTML = "<div>";
+      var innerHTML = "<div>";
+      infowindow = new google.maps.InfoWindow();
       innerHTML += "<strong>" + title + "</strong>";
       innerHTML += '<br><img src="' + locationImage + '">';
       innerHTML += '<br><u>Address:</u>';
