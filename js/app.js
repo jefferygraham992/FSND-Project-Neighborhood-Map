@@ -182,11 +182,17 @@ function viewModel(){
   };
 
   //Add markers function
-  this.placeMarkers = function(arr) {
+  function placeMarkers(arr) {
     arr.forEach(function(location, i) {
       var position = {lat: location.venue.location.lat,
                       lng: location.venue.location.lng};
       var title = location.venue.name;
+      marker = new google.maps.Marker({
+        map: map,
+        title: title,
+        position: position,
+        id: i
+      });
       var locationImageSize = "150x150"
       var locationImage = location.venue.photos.groups[0].items[0].prefix
                           + locationImageSize
@@ -200,15 +206,9 @@ function viewModel(){
       innerHTML += '<br>' + locationAddress[0];
       innerHTML += '<br>' + locationAddress[1];
       innerHTML += "</div>"
-      infowindow.setContent(innerHTML);
-      marker = new google.maps.Marker({
-        map: map,
-        title: title,
-        position: position,
-        id: i
-      });
       marker.addListener('click', toggleBounce);
       marker.addListener('click', function() {
+        infowindow.setContent(innerHTML);
         infowindow.open(map, this);
       });
       markers.push(marker);
