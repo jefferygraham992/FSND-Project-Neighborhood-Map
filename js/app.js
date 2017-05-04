@@ -1,8 +1,8 @@
 var map, marker, infowindow;
 var markers = [];
-var search = "museums";
+var search = "Museums";
 var washingtonDC = {lat: 38.9072, lng: -77.0369};
-var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.9072,-77.0369&query=" + search +"&radius=10000&limit=10&venuePhotos=1";
+var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.9072,-77.0369&query=" + search +"&radius=15000&limit=10&venuePhotos=1";
 $("#h3-search").text(search[0].toUpperCase() + search.slice(1));
 
 // Add a custom control to the google map for opening list menu
@@ -148,7 +148,7 @@ function initMap() {
   ];
   map = new google.maps.Map(document.getElementById('map'), {
     center: washingtonDC,
-    zoom: 13,
+    zoom: 14,
     mapTypeControl: true,
     mapTypeControlOptions: {
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
