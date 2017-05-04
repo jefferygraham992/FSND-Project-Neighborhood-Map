@@ -60,3 +60,13 @@ body {
     transition: margin-left .5s;
     padding: 20px;
 }
+
+.attribution {
+  background-color:#818181;
+  color: #fff;
+  text-align: right;
+  border-radius: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 20px;
+}
