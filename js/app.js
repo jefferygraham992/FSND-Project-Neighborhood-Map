@@ -165,6 +165,55 @@ function initMap() {
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(listControlDiv);
 };
 
+//Add markers function
+function placeMarkers(arr) {
+  arr.forEach(function(location, i) {
+    var position = {lat: location.venue.location.lat,
+                    lng: location.venue.location.lng};
+    var title = location.venue.name;
+    marker = new google.maps.Marker({
+      map: map,
+      title: title,
+      position: position,
+      id: i
+    });
+    var locationImageSize = "150x150"
+    var locationImage = location.venue.photos.groups[0].items[0].prefix
+                        + locationImageSize
+                        + location.venue.photos.groups[0].items[0].suffix;
+    var locationAddress = location.venue.location.formattedAddress;
+    var locationMoreInfo = location.tips[0].canonicalUrl;
+    var infowindowContent = "<div>";
+    infowindow = new google.maps.InfoWindow();
+    infowindowContent += "<strong>" + title + "</strong>";
+    infowindowContent += '<br><img src="' + locationImage + '">';
+    infowindowContent += '<br><u>Address:</u>';
+    infowindowContent += '<br>' + locationAddress[0];
+    infowindowContent += '<br>' + locationAddress[1];
+    infowindowContent += '<br><a href="' + locationMoreInfo +'" target="_blank">Click for more info.</a>';
+    infowindowContent += '<p class="attribution">Powered by <img src="images/Foursquare_logo.png"></p>'
+    infowindowContent += "</div>"
+    marker.addListener('click', toggleBounce);
+    marker.addListener('click', function() {
+      infowindow.setContent(infowindowContent);
+      infowindow.open(map, this);
+    });
+    markers.push(marker);
+  });
+  // Toggle marker state b/t bouncing & not bouncing
+  function toggleBounce() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setAnimation(null);
+    };
+    if (this.getAnimation()) {
+      this.setAnimation(null);
+    }
+    else {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  };
+};
+
 function viewModel(){
   var self = this;
   //Initialize ko.observableArray for locations
@@ -174,55 +223,6 @@ function viewModel(){
   //Add locations to ko.observable
   this.buildList = function(locationArray) {
     self.locationList(locationArray);
-  };
-
-  //Add markers function
-  this.placeMarkers = function(arr) {
-    arr.forEach(function(location, i) {
-      var position = {lat: location.venue.location.lat,
-                      lng: location.venue.location.lng};
-      var title = location.venue.name;
-      marker = new google.maps.Marker({
-        map: map,
-        title: title,
-        position: position,
-        id: i
-      });
-      var locationImageSize = "150x150"
-      var locationImage = location.venue.photos.groups[0].items[0].prefix
-                          + locationImageSize
-                          + location.venue.photos.groups[0].items[0].suffix;
-      var locationAddress = location.venue.location.formattedAddress;
-      var locationMoreInfo = location.tips[0].canonicalUrl;
-      var infowindowContent = "<div>";
-      infowindow = new google.maps.InfoWindow();
-      infowindowContent += "<strong>" + title + "</strong>";
-      infowindowContent += '<br><img src="' + locationImage + '">';
-      infowindowContent += '<br><u>Address:</u>';
-      infowindowContent += '<br>' + locationAddress[0];
-      infowindowContent += '<br>' + locationAddress[1];
-      infowindowContent += '<br><a href="' + locationMoreInfo +'" target="_blank">Click for more info.</a>';
-      infowindowContent +='<p class="attribution">Powered by <img src="images/Foursquare_logo.png"></p>'
-      infowindowContent += "</div>"
-      marker.addListener('click', toggleBounce);
-      marker.addListener('click', function() {
-        infowindow.setContent(infowindowContent);
-        infowindow.open(map, this);
-      });
-      markers.push(marker);
-    });
-    // Toggle marker state b/t bouncing & not bouncing
-    function toggleBounce() {
-      for (var i = 0; i < markers.length; i++) {
-          markers[i].setAnimation(null);
-      };
-      if (this.getAnimation()) {
-        this.setAnimation(null);
-      }
-      else {
-        this.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    };
   };
 
   //Implementation of click function on clicked list item
