@@ -20,7 +20,7 @@ body {
 }
 
 /* The side navigation menu */
-.sidenav {
+.menu {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
@@ -35,18 +35,18 @@ body {
 }
 
 /* The navigation menu items */
-.sidenav li {
+.menu li {
     padding: 8px 8px 8px 0;
     font-size: 14px;
 }
 
 /* When you mouse over the navigation items, change their color */
-.sidenav li:hover {
+.menu li:hover {
     color: #f1f1f1;
 }
 
 /* Position and style the close button (top right corner) */
-.sidenav .closebtn {
+.menu .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
