@@ -1,6 +1,6 @@
 var map, marker, infowindow;
 var markers = [];
-var search = "Museums";
+var search = "Parks";
 var washingtonDC = {lat: 38.9072, lng: -77.0369};
 var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.9072,-77.0369&query=" + search +"&radius=15000&limit=10&venuePhotos=1";
 $("#h3-search").text(search[0].toUpperCase() + search.slice(1));
@@ -148,7 +148,7 @@ function initMap() {
   ];
   map = new google.maps.Map(document.getElementById('map'), {
     center: washingtonDC,
-    zoom: 14,
+    zoom: 12,
     mapTypeControl: true,
     mapTypeControlOptions: {
               style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
@@ -193,7 +193,7 @@ function viewModel(){
                           + locationImageSize
                           + location.venue.photos.groups[0].items[0].suffix;
       var locationAddress = location.venue.location.formattedAddress;
-      var locationWebAddress = location.venue.url;
+      var locationMoreInfo = location.tips[0].canonicalUrl;
       var infowindowContent = "<div>";
       infowindow = new google.maps.InfoWindow();
       infowindowContent += "<strong>" + title + "</strong>";
@@ -201,7 +201,8 @@ function viewModel(){
       infowindowContent += '<br><u>Address:</u>';
       infowindowContent += '<br>' + locationAddress[0];
       infowindowContent += '<br>' + locationAddress[1];
-      infowindowContent += '<br><a href="' + locationWebAddress +'" target="_blank">Click for more info.</a>';
+      infowindowContent += '<br><a href="' + locationMoreInfo +'" target="_blank">Click for more info.</a>';
+      infowindowContent +='<p class="attribution">Powered by <img src="images/Foursquare_logo.png"></p>'
       infowindowContent += "</div>"
       marker.addListener('click', toggleBounce);
       marker.addListener('click', function() {
