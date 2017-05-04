@@ -28,7 +28,7 @@ function ListControl(controlDiv, map) {
   controlUI.addEventListener('click', function() {
     openList();
   });
-};
+}
 
 //Initialize map
 function initMap() {
@@ -163,7 +163,7 @@ function initMap() {
 
   listControlDiv.index = 1;
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(listControlDiv);
-};
+}
 
 //Add markers function
 function placeMarkers(arr) {
@@ -190,8 +190,10 @@ function placeMarkers(arr) {
     infowindowContent += '<br><u>Address:</u>';
     infowindowContent += '<br>' + locationAddress[0];
     infowindowContent += '<br>' + locationAddress[1];
-    infowindowContent += '<br><a href="' + locationMoreInfo +'" target="_blank">Click for more info.</a>';
-    infowindowContent += '<p class="attribution">Powered by <img src="images/Foursquare_logo.png"></p>'
+    infowindowContent += '<br><a href="' + locationMoreInfo +
+                         '" target="_blank">Click for more info.</a>';
+    infowindowContent += '<p class="attribution">Powered by <img' +
+                         ' src="images/Foursquare_logo.png"></p>'
     infowindowContent += "</div>"
     marker.addListener('click', toggleBounce);
     marker.addListener('click', function() {
@@ -200,19 +202,20 @@ function placeMarkers(arr) {
     });
     markers.push(marker);
   });
-  // Toggle marker state b/t bouncing & not bouncing
-  function toggleBounce() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setAnimation(null);
-    };
-    if (this.getAnimation()) {
-      this.setAnimation(null);
-    }
-    else {
-      this.setAnimation(google.maps.Animation.BOUNCE);
-    }
+}
+
+// Toggle marker state b/t bouncing & not bouncing
+function toggleBounce() {
+  for (var i = 0; i < markers.length; i++) {
+      markers[i].setAnimation(null);
   };
-};
+  if (this.getAnimation()) {
+    this.setAnimation(null);
+  }
+  else {
+    this.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
 
 function viewModel(){
   var self = this;
