@@ -1,42 +1,47 @@
 var map, marker, infowindow;
 var markers = [];
-var search = "Parks";
+var search = "museums";
 var washingtonDC = {lat: 38.9072, lng: -77.0369};
 var url = "https://api.foursquare.com/v2/venues/explore?client_id=JG3FXNYMAHZG1OVUMBZACXPP3CBVLNT2X1O0BXKGOZKRO4SA%20&client_secret=XI2JWF5HUU2CUOLITHDB2NUZ3EZXEIYML5PVCOG12IZIWNU5%20&v=20130815%20&ll=38.9072,-77.0369&query=" + search +"&radius=10000&limit=10&venuePhotos=1";
 $("#h3-search").text(search[0].toUpperCase() + search.slice(1));
 
+// Add a custom control to the google map for opening list menu
 function ListControl(controlDiv, map) {
-  // Set CSS for the control border.
+  // Set CSS for the control look.
   var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = '#fff';
-  controlUI.style.border = '2px solid #fff';
-  controlUI.style.borderRadius = '3px';
-  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlUI.style.backgroundColor = '#000';
   controlUI.style.cursor = 'pointer';
-  controlUI.style.marginBottom = '22px';
-  controlUI.style.textAlign = 'center';
   controlUI.title = 'Click to open locations list';
   controlDiv.appendChild(controlUI);
 
-  // Set CSS for the control interior.
+  // Set CSS for the control text.
   var controlText = document.createElement('div');
-  controlText.style.color = 'rgb(25,25,25)';
-  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
   controlText.style.fontSize = '16px';
+  controlText.style.color = '#fff';
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
   controlText.innerHTML = '☰';
   controlUI.appendChild(controlText);
 
-  // Setup the click event listeners: simply set the map to Chicago.
+  // Setup the click event listeners: Open menu for list of locations
   controlUI.addEventListener('click', function() {
-    openNav();
+    openList();
   });
 };
 
 //Initialize map
 function initMap() {
+  //AJAX request to get locations
+  $.getJSON(url, function(data) {
+    var locations = data.response.groups[0].items;
+    buildList(locations);
+  })
+  .fail(function() {
+    alert("Failed to retrieve locations");
+  });
+
+  // Add styling to map
   var styles = [
       {
           "featureType": "landscape",
@@ -151,7 +156,7 @@ function initMap() {
           },
     styles: styles
   });
-  // Create the DIV to hold the control and call the CenterControl()
+  // Create the DIV to hold the custom control and call the ListControl()
   // constructor passing in this DIV.
   var listControlDiv = document.createElement('div');
   var listControl = new ListControl(listControlDiv, map);
@@ -161,19 +166,9 @@ function initMap() {
 };
 
 function viewModel(){
-  //AJAX request to build list & place markers
-  $.getJSON(url, function(data) {
-    var locations = data.response.groups[0].items;
-    buildList(locations);
-  })
-  .fail(function() {
-    alert("Failed to retrieve locations");
-  });
-
   var self = this;
   //Initialize ko.observableArray for locations
   this.locationList = ko.observableArray([]);
-
   this.filter = ko.observable("");
 
   //Add locations to ko.observable
@@ -182,7 +177,7 @@ function viewModel(){
   };
 
   //Add markers function
-  function placeMarkers(arr) {
+  this.placeMarkers = function(arr) {
     arr.forEach(function(location, i) {
       var position = {lat: location.venue.location.lat,
                       lng: location.venue.location.lng};
@@ -198,21 +193,24 @@ function viewModel(){
                           + locationImageSize
                           + location.venue.photos.groups[0].items[0].suffix;
       var locationAddress = location.venue.location.formattedAddress;
-      var innerHTML = "<div>";
+      var locationWebAddress = location.venue.url;
+      var infowindowContent = "<div>";
       infowindow = new google.maps.InfoWindow();
-      innerHTML += "<strong>" + title + "</strong>";
-      innerHTML += '<br><img src="' + locationImage + '">';
-      innerHTML += '<br><u>Address:</u>';
-      innerHTML += '<br>' + locationAddress[0];
-      innerHTML += '<br>' + locationAddress[1];
-      innerHTML += "</div>"
+      infowindowContent += "<strong>" + title + "</strong>";
+      infowindowContent += '<br><img src="' + locationImage + '">';
+      infowindowContent += '<br><u>Address:</u>';
+      infowindowContent += '<br>' + locationAddress[0];
+      infowindowContent += '<br>' + locationAddress[1];
+      infowindowContent += '<br><a href="' + locationWebAddress +'" target="_blank">Click for more info.</a>';
+      infowindowContent += "</div>"
       marker.addListener('click', toggleBounce);
       marker.addListener('click', function() {
-        infowindow.setContent(innerHTML);
+        infowindow.setContent(infowindowContent);
         infowindow.open(map, this);
       });
       markers.push(marker);
     });
+    // Toggle marker state b/t bouncing & not bouncing
     function toggleBounce() {
       for (var i = 0; i < markers.length; i++) {
           markers[i].setAnimation(null);
@@ -238,15 +236,18 @@ function viewModel(){
   //Filter the list view
   this.filteredList = ko.computed(function() {
     var filter = this.filter().toLowerCase();
+    //If nothing is entered in input field, return the whole array of locations
     if (!filter) {
       placeMarkers(locationList());
       return this.locationList();
     }
+    //If text is entered, return entries that include the text entered
     else
     {
       for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
       };
+      //Create an array of filtered locations from original array of locations
       var filtered = ko.utils.arrayFilter(this.locationList(), function (data) {
         return (data.venue.name.toLowerCase().includes(filter));
       });

@@ -1,10 +1,10 @@
 //* Set the width of the side navigation to 250px */
-function openNav() {
+function openList() {
   document.getElementById("mySidenav").style.width = "275px";
 }
 
 /* Set the width of the side navigation to 0 */
-function closeNav() {
+function closeList() {
   document.getElementById("mySidenav").style.width = "0";
 }
-openNav();
+openList();
