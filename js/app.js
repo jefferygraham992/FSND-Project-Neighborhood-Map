@@ -186,10 +186,10 @@ function placeMarkers(arr) {
       position: position,
       id: i
     });
-    var locationImageSize = "150x150"
-    var locationImage = location.venue.photos.groups[0].items[0].prefix
-                        + locationImageSize
-                        + location.venue.photos.groups[0].items[0].suffix;
+    var locationImageSize = "150x150";
+    var locationImage = location.venue.photos.groups[0].items[0].prefix +
+                        locationImageSize +
+                        location.venue.photos.groups[0].items[0].suffix;
     var locationAddress = location.venue.location.formattedAddress;
     var locationMoreInfo = location.tips[0].canonicalUrl;
     var infowindowContent = "<div>";
@@ -202,8 +202,8 @@ function placeMarkers(arr) {
     infowindowContent += '<br><a href="' + locationMoreInfo +
                          '" target="_blank">Click for more info.</a>';
     infowindowContent += '<p class="attribution">Powered by <img' +
-                         ' src="images/Foursquare_logo.png"></p>'
-    infowindowContent += "</div>"
+                         ' src="images/Foursquare_logo.png"></p>';
+    infowindowContent += "</div>";
     marker.addListener('click', toggleBounce);
     marker.addListener('click', function() {
       infowindow.setContent(infowindowContent);
@@ -217,7 +217,7 @@ function placeMarkers(arr) {
 function toggleBounce() {
   for (var i = 0; i < markers.length; i++) {
       markers[i].setAnimation(null);
-  };
+  }
   if (this.getAnimation()) {
     this.setAnimation(null);
   }
@@ -232,8 +232,8 @@ function showMarkers(arr) {
     for (var i = 0; i < markers.length; i++) {
       if (location.venue.name == markers[i].title) {
         markers[i].setVisible(true);
-      };
-    };
+      }
+    }
   });
 }
 
@@ -269,7 +269,7 @@ function viewModel() {
     {
       for (var i = 0; i < markers.length; i++) {
           markers[i].setVisible(false);
-      };
+      }
       //Create an array of filtered locations from original array of locations
       var filtered = ko.utils.arrayFilter(this.locationList(), function (data) {
         return (data.venue.name.toLowerCase().includes(filter));
@@ -282,7 +282,7 @@ function viewModel() {
 
 //Error handling for Google Maps
 function reportError() {
-  alert("Map failed to load. Please try again later.")
+  alert("Map failed to load. Please try again later.");
 }
 
 ko.applyBindings(viewModel);
