@@ -36,6 +36,7 @@ function initMap() {
   $.getJSON(url, function(data) {
     var locations = data.response.groups[0].items;
     buildList(locations);
+    placeMarkers(locations);
   })
   .fail(function() {
     alert("Failed to retrieve locations");
@@ -217,6 +218,17 @@ function toggleBounce() {
   }
 }
 
+//Show markers
+function showMarkers(arr) {
+  arr.forEach(function(location) {
+    for (var i = 0; i < markers.length; i++) {
+      if (location.venue.name == markers[i].title) {
+        markers[i].setVisible(true);
+      };
+    };
+  });
+}
+
 function viewModel(){
   var self = this;
   //Initialize ko.observableArray for locations
@@ -242,20 +254,19 @@ function viewModel(){
     var filter = this.filter().toLowerCase();
     //If nothing is entered in input field, return the whole array of locations
     if (!filter) {
-      placeMarkers(locationList());
       return this.locationList();
     }
     //If text is entered, return entries that include the text entered
     else
     {
       for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
+          markers[i].setVisible(false);
       };
       //Create an array of filtered locations from original array of locations
       var filtered = ko.utils.arrayFilter(this.locationList(), function (data) {
         return (data.venue.name.toLowerCase().includes(filter));
       });
-      placeMarkers(filtered);
+      showMarkers(filtered);
       return filtered;
     }
   }, this);
