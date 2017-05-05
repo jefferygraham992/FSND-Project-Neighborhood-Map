@@ -262,6 +262,7 @@ function viewModel() {
     var filter = this.filter().toLowerCase();
     //If nothing is entered in input field, return the whole array of locations
     if (!filter) {
+      showMarkers(this.locationList());
       return this.locationList();
     }
     //If text is entered, return entries that include the text entered
